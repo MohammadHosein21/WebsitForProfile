@@ -70,7 +70,7 @@
         <br/>
         <h2>Latest Posts</h2>
         <hr/>
-        {% for blog in blogs.all %}
+        {% for blog in blogs %}
             <a href="{% url 'detail' blog.id%}"><h3>{{ blog.title }}</h3></a>
             {{ blog.pub_date_pretty }}
             <br/>
@@ -78,7 +78,7 @@
             <br/>
             <p>{{ blog.summary }}</p>
         {% endfor %}
-
+        {% include "pagination.html" with page=blogs %}
     </div>
 </main>
 
