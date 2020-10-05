@@ -2,6 +2,9 @@ from django.db import models
 
 
 # Create your models here.
+from django.urls import reverse
+
+
 class Blog(models.Model):
     title = models.CharField(max_length=255)
     pub_date = models.DateTimeField(auto_now_add=True)
@@ -18,6 +21,7 @@ class Blog(models.Model):
         return self.pub_date.strftime('%b %e %Y')
 
 
+
 class Comment(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=100)
@@ -28,4 +32,4 @@ class Comment(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'Comment bu {self.name} on {self.blog}'
+        return f'Comment by {self.name} on {self.blog}'

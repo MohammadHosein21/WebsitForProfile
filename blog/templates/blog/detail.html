@@ -71,6 +71,35 @@
         <br/>
         <br/>
         <p>{{ blog.body }}</p>
+        <hr/>
+        {% with comments.count as total_comments %}
+            <h2>
+                {{ total_comments }} comment{{ total_comments|pluralize }}
+            </h2>
+        {% endwith %}
+        {% for comment in comments %}
+            <div class="comment">
+                <p class="info">
+                    Comment {{ forloop.counter }} by {{ comment.name }}
+                    {{ comment.created }}
+                </p>
+                {{ comment.body|linebreaks }}
+            <hr/>
+            </div>
+        {% empty %}
+            <p>There are no comments yet!</p>
+            <hr/>
+        {% endfor %}
+        {% if new_comments %}
+            <h2>Your comment has been added.</h2>
+        {% else %}
+            <h2>Add a new comment</h2>
+            <form method="post">
+                {{ comment_form.as_p }}
+                {% csrf_token %}
+                <p><button type="submit" class="btn btn-primary">Add comment</button></p>
+            </form>
+        {% endif %}
     </div>
 </main>
 
